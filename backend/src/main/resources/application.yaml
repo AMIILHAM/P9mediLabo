@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/medilabo?useSSL=false
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:root}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+cors:
+  enabled: true
+  allowedAddress: ${ALLOWED_ADDRESS:http://localhost:4200,http://localhost:8080}
+
+app:
+  authenticationSecret: ${APP_SECRET:eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZX}
+  accessTokenExpirationDuration: ${ACCESS_TOKEN_DURRATION:86400000} # duration in ms, 5 min
+  refreshTokenExpirationDuration: ${REFRESH_TOKEN_DURRATION:86400000} # duration in ms, 6min (should be at least 1 day)

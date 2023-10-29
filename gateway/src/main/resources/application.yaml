@@ -1,0 +1,31 @@
+# Server configurations (if needed)
+server:
+  port: 8080
+
+# Logging configurations (if needed)
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: MediLab Solutions Gateway Service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      globalcors:
+        '*':
+            allowedOrigins: '*'
+        add-to-simple-url-handler-mapping: true
+      routes:
+        - id: backend-route
+          uri: ${BACKEND_ROUTE:http://localhost:8081}
+          predicates:
+            - Path=/patients/**, /auth/**
+          filters:
+            - AddResponseHeader=X-Powered-By, MediLab Solutions Gateway Service
+
+routes:
+  backend: ${BACKEND_ROUTE:http://localhost:8081}
+
